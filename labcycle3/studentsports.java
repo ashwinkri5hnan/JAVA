@@ -1,42 +1,35 @@
 import java.util.Scanner;
 
-class Student {
+interface Student {
+    void displayAcademicScore();
+}
+
+interface Sports {
+    void displaySportsScore();
+}
+
+class Result implements Student, Sports {
     private String name;
     private int academicScore;
+    private int sportsScore;
 
-    public Student(String name, int academicScore) {
+    public Result(String name, int academicScore, int sportsScore) {
         this.name = name;
         this.academicScore = academicScore;
+        this.sportsScore = sportsScore;
     }
 
     public void displayAcademicScore() {
         System.out.println("Academic Score of " + name + ": " + academicScore);
     }
-}
-
-class Sports {
-    private int sportsScore;
-
-    public Sports(int sportsScore) {
-        this.sportsScore = sportsScore;
-    }
 
     public void displaySportsScore() {
         System.out.println("Sports Score: " + sportsScore);
     }
-}
-
-class Result extends Student {
-    private Sports sports;
-
-    public Result(String name, int academicScore, int sportsScore) {
-        super(name, academicScore);
-        this.sports = new Sports(sportsScore);
-    }
 
     public void displayScores() {
         displayAcademicScore();
-        sports.displaySportsScore();
+        displaySportsScore();
     }
 }
 
@@ -49,14 +42,12 @@ class Main {
 
         System.out.print("Enter academic score: ");
         int academicScore = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
 
         System.out.print("Enter sports score: ");
         int sportsScore = scanner.nextInt();
-        scanner.nextLine(); // Consume the newline character
 
         Result result = new Result(name, academicScore, sportsScore);
-        System.out.println("\nStudent Result:");
+        System.out.println("Student Result:");
         result.displayScores();
     }
 }
