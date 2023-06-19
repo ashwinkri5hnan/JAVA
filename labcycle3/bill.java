@@ -1,12 +1,12 @@
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-// Interface with prototype function for calculation
 interface Billable {
     double calculate();
 }
 
-// Product class implementing the Billable interface
 class Product implements Billable {
     private int productId;
     private String name;
@@ -27,8 +27,7 @@ class Product implements Billable {
 
     @Override
     public String toString() {
-        return String.format("%-15s %-10s %-10d %-12.2f %.2f",
-                productId, name, quantity, unitPrice, calculate());
+        return String.format("%-15s %-10s %-10d %-12.2f %.2f", productId, name, quantity, unitPrice, calculate());
     }
 }
 
@@ -44,12 +43,21 @@ public class Main {
         System.out.println("Product ID    Name       Quantity    Unit Price   Total");
         System.out.println("--------------------------------------------------------");
 
-        // Create a Product object
-        Product product = new Product(123, "ashwin", 3, 200);
+        List<Product> productList = new ArrayList<>();
 
-        System.out.println(product);
+        productList.add(new Product(123, "ashwin", 3, 200));
+        productList.add(new Product(456, "john", 2, 150));
+        productList.add(new Product(789, "sarah", 1, 300));
+
+        double netTotal = 0;
+
+        for (Product product : productList) {
+            System.out.println(product);
+            netTotal += product.calculate();
+        }
 
         System.out.println("--------------------------------------------------------");
+        System.out.printf("Net Total: %.2f%n", netTotal);
     }
 }
 
